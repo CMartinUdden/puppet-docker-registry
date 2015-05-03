@@ -1,26 +1,61 @@
+# The `common' part is automatically included (and possibly overriden by all
+# other flavors)
 common:
+    # Bucket for storage
     boto_bucket: <%= boto_bucket %>
+
+    # Amazon S3 Storage Configuration
     s3_access_key: <%= s3_access_key %>
     s3_secret_key: <%= s3_secret_key %>
     s3_bucket: <%= s3_bucket %>
     s3_encrypt: <%= s3_encrypt %>
     s3_secure: <%= s3_secure %>
+
+    # Google Cloud Storage Configuration
+    # See:
+    # https://developers.google.com/storage/docs/reference/v1/getting-startedv1#keys
+    # for details on access and secret keys.
     gs_access_key: <%= gs_access_key %>
     gs_secret_key: <%= gs_secret_key %>
     gs_secure: <%= gs_secure %>
+
+    # OAuth 2.0 authentication with the storage.
+    # Supported for Google Cloud Storage only.
+    # oauth2 can be set to true or false. If it is set to true, gs_access_key,
+    # gs_secret_key and gs_secure are not needed.
+    # Client ID and Client Secret must be set into OAUTH2_CLIENT_ID and
+    # OAUTH2_CLIENT_SECRET environment variables.
+    # See: https://developers.google.com/accounts/docs/OAuth2.
     oauth2: <%= oauth2 %>
+
+    # Let gunicorn set this environment variable or set a random string here
     secret_key: <%= secret_key %>
+
     search_backend: <%= search_backend %>
     sqlalchemy_index_database:
-      <%= sqlalchemy_index_database %>
+        "<%= sqlalchemy_index_database %>"
+# This is the default configuration when no flavor is specified
+dev:
+    storage: <%= dev_storage %>
+    storage_path: <%= dev_storage_path %>
+    loglevel: <%= loglevel %>
+
+# To specify another flavor, set the environment variable SETTINGS_FLAVOR
+# $ export SETTINGS_FLAVOR=prod
+prod:
+    storage: <%= prod_storage %>
+    storage_path: <%= prod_storage_path %>
+    # Enabling LRU cache for small files. This speeds up read/write on small files
+    # when using a remote storage backend (like S3).
     cache:
-        host: <%= cache_host %>
-        port: <%= cache_port %>
-        password: <%= cache_password %>
+        host: <%= prod_cache_host %>
+        port: <%= prod_cache_port %>
+        password: <%= prod_cache_password %>
     cache_lru:
-        host: <%= cache_lru_host %>
-        port: <%= cache_lru_port %>
-        password: <%= cache_lru_password %>
+        host: <%= prod_cache_lru_host %>
+        port: <%= prod_cache_lru_port %>
+        password: <%= prod_cache_lru_password %>
+    # Enabling these options makes the Registry send an email on each code Exception
     email_exceptions:
         smtp_host: <%= smtp_host %>
         smtp_port: <%= smtp_port %>
@@ -29,15 +64,22 @@ common:
         smtp_secure: <%= smtp_secure %>
         from_addr: <%= from_addr %>
         to_addr: <%= to_addr %>
+# This flavor is automatically used by unit tests
+test:
+    storage: <%= test_storage %>
+    storage_path: <%= test_storage_path %>
+
+# This flavor is for storing images in Openstack Swift
+swift:
+    storage: swift
+    storage_path: <%= swift_storage_path %>
     swift_authurl: <%= swift_authurl %>
     swift_container: <%= swift_container %>
     swift_user: <%= swift_user %>
     swift_password: <%= swift_password %>
     swift_tenant_name: <%= swift_tenant_name %>
     swift_region_name: <%= swift_region_name %>
-default:
-    loglevel: <%= loglevel %>
-    storage: <%= storage %>
-    storage_path: <%= storage_path %>
-    storage_alternate: <%= storage_alternate %>
 
+local:
+    storage: <%= local_storage %>
+    storage_path: <%= local_storage_path %>
