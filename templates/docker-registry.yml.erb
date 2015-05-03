@@ -1,0 +1,43 @@
+common:
+    boto_bucket: <%= boto_bucket %>
+    s3_access_key: <%= s3_access_key %>
+    s3_secret_key: <%= s3_secret_key %>
+    s3_bucket: <%= s3_bucket %>
+    s3_encrypt: <%= s3_encrypt %>
+    s3_secure: <%= s3_secure %>
+    gs_access_key: <%= gs_access_key %>
+    gs_secret_key: <%= gs_secret_key %>
+    gs_secure: <%= gs_secure %>
+    oauth2: <%= oauth2 %>
+    secret_key: <%= secret_key %>
+    search_backend: <%= search_backend %>
+    sqlalchemy_index_database:
+      <%= sqlalchemy_index_database %>
+    cache:
+        host: <%= cache_host %>
+        port: <%= cache_port %>
+        password: <%= cache_password %>
+    cache_lru:
+        host: <%= cache_lru_host %>
+        port: <%= cache_lru_port %>
+        password: <%= cache_lru_password %>
+    email_exceptions:
+        smtp_host: <%= smtp_host %>
+        smtp_port: <%= smtp_port %>
+        smtp_login: <%= smtp_login %>
+        smtp_password: <%= smtp_password %>
+        smtp_secure: <%= smtp_secure %>
+        from_addr: <%= from_addr %>
+        to_addr: <%= to_addr %>
+    swift_authurl: <%= swift_authurl %>
+    swift_container: <%= swift_container %>
+    swift_user: <%= swift_user %>
+    swift_password: <%= swift_password %>
+    swift_tenant_name: <%= swift_tenant_name %>
+    swift_region_name: <%= swift_region_name %>
+default:
+    loglevel: <%= loglevel %>
+    storage: <%= storage %>
+    storage_path: <%= storage_path %>
+    storage_alternate: <%= storage_alternate %>
+
