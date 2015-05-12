@@ -78,7 +78,7 @@ class docker-registry (
 
   file { '/etc/sysconfig/docker-registry':
     ensure  => present,
-    mode    => '0440',
+    mode    => '0444',
     content => template('docker-registry/docker-registry.erb')
   }
 
