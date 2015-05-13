@@ -129,10 +129,4 @@ class docker-registry (
     content => template('docker-registry/docker-registry.service.erb')
   }
 
-  file { '/usr/lib/python2.7/site-packages/docker-registry/docker_registry/toolkit.py':
-    ensure  => present,
-    mode    => '0444',
-    source  => 'puppet:///files/hotel/docker/registry/toolkit.py',
-    require => Package[docker-registry]
-  }
 }
