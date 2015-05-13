@@ -105,6 +105,7 @@ class docker-registry (
         File['/etc/docker-registry.yml'], 
         File['/etc/sysconfig/docker-registry'], 
         File['/etc/systemd/system/docker-registry.service'],
+        File['/usr/lib/python2.7/site-packages/docker-registry/docker_registry/toolkit.py'],
         Package['python-redis'],
         Package['python-sqlalchemy'],
       ]
@@ -129,4 +130,10 @@ class docker-registry (
     content => template('docker-registry/docker-registry.service.erb')
   }
 
+  file { '/usr/lib/python2.7/site-packages/docker-registry/docker_registry/toolkit.py':
+    ensure  =>  'present',
+    mode    =>  '0444',
+    source  =>  'puppet:///modules/docker-registry/toolkit.py',
+    require =>  Package[docker-registry],
+  }
 }
